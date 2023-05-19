@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +18,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Auth::routes();
+
+// Protected Routes (Requires Authentication)
+Route::middleware('auth')->group(function () {
+    Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
+    // Home Routes
+    //Route::get('/home', [HomeController::class, 'index'])->name('home');
+    // Companies Routes
+    Route::resource('companies', CompanyController::class);
+
+    // Employees Routes
+    Route::resource('employees', EmployeeController::class);
 });
