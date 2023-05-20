@@ -13,8 +13,17 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::paginate(10);
-        return view('employees.index', compact('employees'));
+        $columns = array(
+            array('key' => 'id', 'label' => 'ID', 'type' => 'text'),
+            array('key' => 'first_name', 'label' => 'First Name', 'type' => 'text'),
+            array('key' => 'last_name', 'label' => 'Last Name', 'type' => 'text'),
+            array('key' => 'company.name', 'label' => 'Company', 'type' => 'text'),
+            array('key' => 'email', 'label' => 'Email', 'type' => 'text'),
+            array('key' => 'phone', 'label' => 'Phone', 'type' => 'text')
+        );
+
+        $employees = Employee::with('company')->paginate(10);
+        return view('employee.index', compact('employees', 'columns'));
     }
 
     /**

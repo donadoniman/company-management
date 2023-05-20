@@ -24,12 +24,10 @@ Auth::routes();
 
 // Protected Routes (Requires Authentication)
 Route::middleware('auth')->group(function () {
-    Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
     // Home Routes
-    //Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     // Companies Routes
     Route::resource('companies', CompanyController::class);
-
     // Employees Routes
     Route::resource('employees', EmployeeController::class);
 });

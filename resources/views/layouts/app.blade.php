@@ -30,7 +30,18 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                        @auth
+                            @if (Route::has('companies.index'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('companies.index') }}">{{ __('Companies') }}</a>
+                                </li>
+                            @endif
+                            @if (Route::has('employees.index'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('employees.index') }}">{{ __('Employees') }}</a>
+                                </li>
+                            @endif
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->

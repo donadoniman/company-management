@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
-use App\Models\User;
 use App\Models\Company;
-use App\Notifications\NewCompanyNotification;
+use App\Mail\CompanyCreated;
 use App\Http\Requests\CompanyRequest;
+use Illuminate\Support\Facades\Mail;
 
 class CompanyController extends Controller
 {
@@ -16,8 +15,15 @@ class CompanyController extends Controller
      */
     public function index()
     {
+        $columns = array(
+            array('key' => 'id', 'label' => 'ID', 'type' => 'text'),
+            array('key' => 'logo', 'label' => 'Logo', 'type' => 'image'),
+            array('key' => 'name', 'label' => 'Name', 'type' => 'text'),
+            array('key' => 'email', 'label' => 'Email', 'type' => 'text'),
+            array('key' => 'website', 'label' => 'Website', 'type' => 'text')
+        );
         $companies = Company::paginate(10);
-        return view('company/index', compact('companies'));
+        return view('company.index', compact('companies', 'columns'));
     }
 
     /**
@@ -25,7 +31,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return view('company.create');
     }
 
     /**
@@ -33,25 +39,18 @@ class CompanyController extends Controller
      */
     public function store(CompanyRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required',
-            'email' => 'nullable|email',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|dimensions:min_width=100,min_height=100|max:2048',
-            'website' => 'nullable|url',
-        ]);
+        $validatedData = $request->validated();
     
         if ($request->hasFile('logo')) {
             $logo = $request->file('logo');
             $logoPath = $logo->store('public/logos');
             $validatedData['logo'] = $logoPath;
         }
-        echo $validatedData;
 
-        echo $company = Company::create($validatedData);
+        $company = Company::create($validatedData);
 
         // Send email notification
-        //$adminUser = User::where('email', 'admin@admin.com')->first();
-        //$adminUser->notify(new NewCompanyNotification());
+        Mail::to('donadoniman@gmail.com')->send(new CompanyCreated($company));
 
         return redirect()->route('companies.index')->with('success', 'Company created successfully.');
     }
@@ -61,7 +60,15 @@ class CompanyController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $fields = array(
+            array('key' => 'id', 'label' => 'ID', 'type' => 'text'),
+            array('key' => 'logo', 'label' => 'Logo', 'type' => 'image'),
+            array('key' => 'name', 'label' => 'Name', 'type' => 'text'),
+            array('key' => 'email', 'label' => 'Email', 'type' => 'text'),
+            array('key' => 'website', 'label' => 'Website', 'type' => 'text')
+        );
+        $company = Company::findOrFail($id);
+        return view('company.show', compact('id', 'company', 'fields'));
     }
 
     /**
@@ -69,7 +76,8 @@ class CompanyController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $company = Company::findOrFail($id);
+        return view('company.edit', compact('id', 'company'));
     }
 
     /**

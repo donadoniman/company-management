@@ -15,8 +15,10 @@ import { createApp } from 'vue';
 
 const app = createApp({});
 
-import ListComponent from './components/ListComponent.vue';
-app.component('list-component', ListComponent);
+import DataTableComponent from './components/DataTableComponent.vue';
+import DataViewComponent from './components/DataViewComponent.vue';
+app.component('data-table', DataTableComponent);
+app.component('data-view', DataViewComponent);
 
 /**
  * The following block of code may be used to automatically register your

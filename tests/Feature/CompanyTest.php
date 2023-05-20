@@ -25,7 +25,7 @@ class CompanyTest extends TestCase
 
         $logoFile = UploadedFile::fake()->image('logo.jpg');
 
-        $response = $this->actingAs($user)->post('/companies', [
+        $response = $this->actingAs($user)->post('/companies/store', [
             'name' => 'Test Company',
             'email' => 'test@example.com',
             'logo' => $logoFile,
@@ -33,19 +33,14 @@ class CompanyTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
         $this->assertDatabaseHas('companies', [
             'name' => 'Test Company',
             'email' => 'test@example.com',
             'website' => 'http://www.example.com'
         ]);
 
-        /*$this->assertDatabaseHas('companies', [
-            'name' => 'Test Company',
-            'email' => 'test@example.com',
-            'website' => 'http://www.example.com',
-        ]);
-
-        $this->assertTrue(Storage::disk('public/logos')->exists($logoFile->hashName()));*/
+        $this->assertTrue(Storage::disk('public/logos')->exists($logoFile->hashName()));
     }
 
     public function testCanUpdateCompany()

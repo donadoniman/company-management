@@ -8,13 +8,18 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
+                    <ul class="navbar-nav me-auto">
+                        @if (Route::has('companies.index'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('companies.index') }}">{{ __('Companies') }}</a>
+                            </li>
+                        @endif
+                        @if (Route::has('employees.index'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('employees.index') }}">{{ __('Employees') }}</a>
+                            </li>
+                        @endif
+                    </ul>
                 </div>
             </div>
         </div>

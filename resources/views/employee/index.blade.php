@@ -8,18 +8,17 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col">
-                            <h5 class="card-title">{{ __('Companies') }}</h5>
+                            <h5 class="card-title">{{ __('Employees') }}</h5>
                         </div>
                         <div class="col-auto">
-                            <a href="{{ route('companies.create') }}" class="btn btn-primary">{{ __('Create New Company') }}</a>
+                            <a href="{{ route('employees.create') }}" class="btn btn-primary">{{ __('Create New Employee') }}</a>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <data-table 
                         :headers="{{ json_encode($columns) }}" 
-                        :data="{{ json_encode($companies) }}"
-                        :items-per-page="10"
+                        :data="{{ json_encode($employees) }}"
                         >
                     </data-table>
                 </div>
