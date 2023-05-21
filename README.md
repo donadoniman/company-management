@@ -1,4 +1,4 @@
-######  LAREVEL DEVELOPER TEST #######
+##  LAREVEL DEVELOPER TEST ##
 
 In order to progress in the job application, the company is asking programmers to complete a short test. 
 
@@ -18,26 +18,26 @@ Basic, project to manage companies and their employees. Must be original work.
 
     • Email notification: send email whenever new company is entered (use Mailgun or Mailtrap) Testing with phpunit
 
-##### Run Application  #####
+### Run Application  ###
 
-# Setup .env with .env.example and do the database configuration details.
+##### Setup .env with .env.example and do the database configuration details. #####
 
-# install need packages
+##### install need packages #####
 npm install
 
-# database tables migrations
+##### database tables migrations #####
 php artisan migrate
 
-# Run seeders to populate the database with initial data
+##### Run seeders to populate the database with initial data #####
 php artisan db:seed
 
-# Run phpUnit Test
+##### Run phpUnit Test #####
 php artisan test
 
-# To Compile your Vue.js components and generate the necessary JavaScript and CSS files.
+##### To Compile your Vue.js components and generate the necessary JavaScript and CSS files. #####
 npm run dev
 
-# To Run Laravel Application
+##### To Run Laravel Application #####
 php artisan serve
 
 
