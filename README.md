@@ -39,9 +39,3 @@ npm run dev
 
 ##### To Run Laravel Application #####
 php artisan serve
-
-
-
-
-
-
