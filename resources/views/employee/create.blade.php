@@ -29,28 +29,28 @@
                         @csrf
                         <div class="form-group py-2">
                             <label for="name">First Name</label>
-                            <input type="text" class="form-control" id="first_name" name="first_name" required>
+                            <input type="text" class="form-control" id="first_name" name="first_name" value="{{ old('first_name') }}" required>
                         </div>
                         <div class="form-group py-2">
                             <label for="name">Last Name</label>
-                            <input type="text" class="form-control" id="last_name" name="last_name" required>
+                            <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}" required>
                         </div>
                         <div class="form-group py-2">
                             <label for="logo">Company</label>
                             <select id="company_id" name="company_id" class="form-control">
                                 <option value="">Select a company</option>
                                 @foreach ($companies as $company)
-                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                    <option value="{{ $company->id }}" {{ old('company_id') == $company->id ? 'selected' : '' }}>{{ $company->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group py-2">
                             <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" name="email">
+                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}">
                         </div>
                         <div class="form-group py-2">
                             <label for="website">Phone</label>
-                            <input type="text" class="form-control" id="phone" name="phone">
+                            <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone') }}">
                         </div>
                         <button type="submit" class="btn btn-primary">Create Employee</button>
                     </form>

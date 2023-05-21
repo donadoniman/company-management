@@ -31,6 +31,11 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         @auth
+                            @if (Route::has('home.index'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('home.index') }}">{{ __('Home') }}</a>
+                                </li>
+                            @endif
                             @if (Route::has('companies.index'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('companies.index') }}">{{ __('Companies') }}</a>

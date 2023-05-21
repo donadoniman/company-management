@@ -1,6 +1,6 @@
 <template>
     <div class="data-table">
-        <table class="table">
+        <table class="table table-striped table-bordered table-hover">
             <thead>
                 <tr>
                     <!-- Render table headers -->
@@ -57,7 +57,7 @@ export default {
         }
     },
     mounted(){
-        console.log(this.data, 'data');
+        
     },
     computed: {
         items(){

@@ -10,11 +10,13 @@
                         <div class="col">
                             <h5 class="card-title">{{ __('View Employee') }}</h5>
                         </div>
-                        <form action="{{ route('employees.destroy', ['employee' => $id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this employee?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
+                        <div class="col-auto">
+                            <form action="{{ route('employees.destroy', ['employee' => $id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this employee?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
                         <div class="col-auto">
                             <a href="{{ route('employees.edit', ['employee' => $id]) }}" class="btn btn-info">{{ __('Edit') }}</a>
                         </div>

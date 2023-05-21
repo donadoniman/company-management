@@ -8,18 +8,20 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
-                    <ul class="navbar-nav me-auto">
+                    <div class="dashboard-apps">
                         @if (Route::has('companies.index'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('companies.index') }}">{{ __('Companies') }}</a>
-                            </li>
+                            <a href="{{ route('companies.index') }}" class="dashboard-app">
+                                <img src="{{ asset('storage/public/images/companies.png') }}" alt="Companies"/>
+                                <span>{{ __('Companies') }}</span>
+                            </a>
                         @endif
                         @if (Route::has('employees.index'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('employees.index') }}">{{ __('Employees') }}</a>
-                            </li>
+                            <a href="{{ route('employees.index') }}" class="dashboard-app">
+                                <img src="{{ asset('storage/public/images/employees.png') }}" alt="Employees"/>
+                                <span>{{ __('Employees') }}</span>
+                            </a>
                         @endif
-                    </ul>
+                    </div>
                 </div>
             </div>
         </div>

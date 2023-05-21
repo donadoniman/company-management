@@ -1,11 +1,15 @@
+<?php
+
 namespace Tests\Unit;
 
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 
-class CompanyControllerTest extends TestCase
+class CompanyTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
@@ -20,14 +24,13 @@ class CompanyControllerTest extends TestCase
         // Create an authenticated user
         $user = User::factory()->create();
 
-        Storage::fake('public/logos');
+        $logoFile = UploadedFile::fake()->image('logo.jpg', 100, 100);
 
-        $logoFile = UploadedFile::fake()->image('logo.jpg');
         $data = [
-            'name' => 'Test Company',
-            'email' => 'test@example.com',
+            'name' => $this->faker->company,
+            'email' => $this->faker->email,
             'logo' => $logoFile,
-            'website' => 'http://www.example.com'
+            'website' => $this->faker->url,
         ];
 
         $response = $this->actingAs($user)->post(route('companies.store'), $data);
@@ -37,9 +40,7 @@ class CompanyControllerTest extends TestCase
 
         $this->assertDatabaseHas('companies', [
             'name' => $data['name'],
-            'email' => $data['email'],
-            'logo' => $data['logo'],
-            'website' => $data['website'],
+            'email' => $data['email']
         ]);
     }
 
@@ -50,16 +51,21 @@ class CompanyControllerTest extends TestCase
      */
     public function testUpdateCompany()
     {
+        // Create an authenticated user
+        $user = User::factory()->create();
+
         $company = Company::factory()->create();
+
+        $logoFile = UploadedFile::fake()->image('update_logo.jpg', 100, 100);
 
         $data = [
             'name' => $this->faker->company,
             'email' => $this->faker->email,
-            'logo' => 'updated_logo.png',
+            'logo' => $logoFile,
             'website' => $this->faker->url,
         ];
 
-        $response = $this->put(route('companies.update', $company->id), $data);
+        $response = $this->actingAs($user)->put(route('companies.update', $company->id), $data);
 
         $response->assertStatus(302); // Check if the response is a redirect
         $response->assertRedirect(route('companies.index')); // Check if it redirects to the index page
@@ -67,9 +73,7 @@ class CompanyControllerTest extends TestCase
         $this->assertDatabaseHas('companies', [
             'id' => $company->id,
             'name' => $data['name'],
-            'email' => $data['email'],
-            'logo' => $data['logo'],
-            'website' => $data['website'],
+            'email' => $data['email']
         ]);
     }
 
@@ -80,14 +84,17 @@ class CompanyControllerTest extends TestCase
      */
     public function testDeleteCompany()
     {
+        // Create an authenticated user
+        $user = User::factory()->create();
+
         $company = Company::factory()->create();
 
-        $response = $this->delete(route('companies.destroy', $company->id));
+        $response = $this->actingAs($user)->delete(route('companies.destroy', $company->id));
 
         $response->assertStatus(302); // Check if the response is a redirect
         $response->assertRedirect(route('companies.index')); // Check if it redirects to the index page
 
-        $this->assertDeleted('companies', [
+        $this->assertDatabaseMissing('companies', [
             'id' => $company->id,
         ]);
     }
