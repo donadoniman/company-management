@@ -8,27 +8,25 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col">
-                            <h5 class="card-title">{{ __('View Company') }}</h5>
+                            <h5 class="card-title">{{ __('View Employee') }}</h5>
                         </div>
-                        <div class="col-auto">
-                        <form action="{{ route('companies.destroy', ['company' => $id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this company?')">
+                        <form action="{{ route('employees.destroy', ['employee' => $id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this employee?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
+                        <div class="col-auto">
+                            <a href="{{ route('employees.edit', ['employee' => $id]) }}" class="btn btn-info">{{ __('Edit') }}</a>
                         </div>
                         <div class="col-auto">
-                            <a href="{{ route('companies.edit', ['company' => $id]) }}" class="btn btn-info">{{ __('Edit') }}</a>
-                        </div>
-                        <div class="col-auto">
-                            <a href="{{ route('companies.index') }}" class="btn btn-secondary">{{ __('Back') }}</a>
+                            <a href="{{ route('employees.index') }}" class="btn btn-secondary">{{ __('Back') }}</a>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <data-view 
                         :fields="{{ json_encode($fields) }}" 
-                        :data="{{ json_encode($company) }}"
+                        :data="{{ json_encode($employee) }}"
                         >
                     </data-view>
                 </div>

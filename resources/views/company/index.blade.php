@@ -16,6 +16,11 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <data-table 
                         :headers="{{ json_encode($columns) }}" 
                         :data="{{ json_encode($companies) }}"

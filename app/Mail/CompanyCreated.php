@@ -9,12 +9,13 @@ use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use App\Models\Company;
 
 class CompanyCreated extends Mailable
 {
     use Queueable, SerializesModels;
 
-    protected $company;
+    public $company;
 
     /**
      * Create a new message instance.
