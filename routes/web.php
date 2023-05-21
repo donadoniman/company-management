@@ -1,6 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +17,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::redirect('/', '/login');
+
+Auth::routes();
+
+// Protected Routes (Requires Authentication)
+Route::middleware('auth')->group(function () {
+    // Home Routes
+    Route::resource('home', HomeController::class);
+    // Companies Routes
+    Route::resource('companies', CompanyController::class);
+    // Employees Routes
+    Route::resource('employees', EmployeeController::class);
 });
