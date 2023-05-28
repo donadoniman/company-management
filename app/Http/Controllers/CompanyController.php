@@ -55,7 +55,7 @@ class CompanyController extends Controller
         $company = Company::create($validatedData);
 
         // Send email notification
-        Mail::to('donadoniman@gmail.com')->send(new CompanyCreated($company));
+        Mail::to($company->email)->send(new CompanyCreated($company));
 
         return redirect()->route('companies.index')->with('success', 'Company created successfully.');
     }
